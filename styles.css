@@ -1,0 +1,447 @@
+:root {
+    --color-bg: #fffef5;            /* очень светлый фон */
+    --color-accent: #ffe66d;        /* лимонно‑жёлтый */
+    --color-accent-strong: #ffd000; /* более насыщённый жёлтый */
+    --color-text-main: #333333;     /* тёмный текст */
+    --color-text-muted: #666666;    /* приглушённый текст */
+    --color-border-soft: #f5eab2;   /* мягкие границы */
+    --radius-large: 16px;
+    --radius-medium: 12px;
+    --radius-small: 8px;
+    --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.08);
+    --transition-fast: 0.2s ease;
+    --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-base);
+    color: var(--color-text-main);
+    background: radial-gradient(circle at top left, #fff8c6 0, #fffef5 45%, #ffffff 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Шапка */
+
+.header {
+    background: linear-gradient(120deg, #fff6a3, #ffe66d);
+    padding: 32px 16px 20px;
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+.header__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.logo {
+    margin: 0;
+    font-size: 40px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #4c3b00;
+    text-shadow: 0 3px 0 rgba(255, 255, 255, 0.6);
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 15px;
+    color: #5c4b00;
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ffe66d, #ffd000, #ffe66d);
+    box-shadow: 0 4px 10px rgba(255, 208, 0, 0.6);
+}
+
+/* Основная часть */
+
+.main {
+    flex: 1;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 18px 16px 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.intro {
+    margin-bottom: 16px;
+}
+
+.intro__title {
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.intro__text {
+    margin: 0;
+    max-width: 560px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+/* Сетка продавцов (8 кнопок) */
+
+.sellers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    flex: 1;
+    min-height: 0;
+}
+
+@media (max-width: 900px) {
+    .sellers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 540px) {
+    .sellers-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.seller-card {
+    border: 1px solid var(--color-border-soft);
+    border-radius: 24px;
+    padding: 14px 14px 16px;
+    background: radial-gradient(circle at top left, rgba(255, 246, 179, 0.95), rgba(255, 254, 225, 0.95));
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 3px 0 rgba(255, 208, 0, 0.3);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+/* Полупрозрачные иллюстрации‑фоны для кнопок продавцов */
+
+.seller-card::before {
+    content: "";
+    position: absolute;
+    right: -12px;
+    bottom: -12px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7), rgba(255, 230, 109, 0.1));
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.seller-card::after {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    opacity: 0.35;
+    pointer-events: none;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Условные "иконки" для разных типов товаров
+   (для понятности используем разные цвета и простые символы/силуэты) */
+
+.seller-card[data-seller="1"]::after {
+    /* бутылка молока и миска */
+    background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0 20%, rgba(232, 245, 253, 0.95) 20% 100%),
+        radial-gradient(circle at 25% 80%, #ffecb3 25%, transparent 55%);
+    box-shadow: inset 0 0 0 1px rgba(179, 212, 255, 0.5);
+}
+
+.seller-card[data-seller="2"]::after {
+    /* лимон и яблоко */
+    background-image:
+        radial-gradient(circle at 35% 40%, #ffe066 40%, transparent 60%),
+        radial-gradient(circle at 70% 70%, #ffb74d 35%, transparent 60%);
+}
+
+.seller-card[data-seller="3"]::after {
+    /* пучок зелени и лист */
+    background-image:
+        linear-gradient(130deg, #aed581 0 40%, transparent 40% 100%),
+        radial-gradient(circle at 78% 28%, #7cb342 35%, transparent 60%);
+}
+
+.seller-card[data-seller="4"]::after {
+    /* баночка мёда */
+    background-image:
+        linear-gradient(180deg, #ffe082 15%, #ffd54f 15% 80%, #ffca28 80%),
+        linear-gradient(180deg, transparent 0 40%, rgba(255, 255, 255, 0.6) 40% 60%, transparent 60%);
+    box-shadow: inset 0 0 0 1px rgba(255, 193, 7, 0.65);
+}
+
+.seller-card[data-seller="5"]::after {
+    /* буханка хлеба */
+    background-image:
+        radial-gradient(circle at 50% 120%, #ffcc80 60%, transparent 65%),
+        linear-gradient(90deg, transparent 15%, rgba(161, 136, 127, 0.3) 15% 20%, transparent 20% 40%, rgba(161, 136, 127, 0.3) 40% 45%, transparent 45% 65%, rgba(161, 136, 127, 0.3) 65% 70%, transparent 70% 85%);
+}
+
+.seller-card[data-seller="6"]::after {
+    /* ломтик сыра */
+    background-image:
+        linear-gradient(135deg, #ffe082 40%, transparent 40%),
+        radial-gradient(circle at 60% 30%, #ffca28 18%, transparent 55%),
+        radial-gradient(circle at 75% 55%, #ffca28 12%, transparent 55%);
+}
+
+.seller-card[data-seller="7"]::after {
+    /* стейк */
+    background-image:
+        radial-gradient(circle at 30% 35%, #ef9a9a 40%, transparent 60%),
+        radial-gradient(circle at 70% 65%, #e57373 35%, transparent 65%);
+}
+
+.seller-card[data-seller="8"]::after {
+    /* чашка с травяным чаем */
+    background-image:
+        radial-gradient(circle at 50% 80%, #fffde7 40%, transparent 60%),
+        radial-gradient(circle at 50% 50%, #c5e1a5 30%, transparent 55%);
+    box-shadow: inset 0 0 0 1px rgba(197, 225, 165, 0.7);
+}
+
+.seller-card__title {
+    margin: 0;
+    font-size: 16px;
+}
+
+.seller-card__text {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.seller-card:hover,
+.seller-card:focus-visible {
+    outline: none;
+    transform: translateY(-2px);
+    background: #fffbe0;
+    box-shadow: 0 8px 18px rgba(255, 208, 0, 0.35);
+}
+
+.seller-card:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 0 rgba(255, 208, 0, 0.4);
+}
+
+/* Модальное окно‑витрина */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none; /* скрыто по умолчанию */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal--open {
+    display: flex;
+}
+
+.modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.modal__window {
+    position: relative;
+    width: 95vw;
+    max-width: 95vw;
+    height: 95vh;
+    max-height: 95vh;
+    background: var(--color-bg);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-soft);
+    padding: 20px 20px 18px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: none;
+    background: #fff7c2;
+    color: #4c3b00;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 0 rgba(255, 208, 0, 0.3);
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.modal__close:hover {
+    background: #ffe66d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(255, 208, 0, 0.4);
+}
+
+.modal__close:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 0 rgba(255, 208, 0, 0.3);
+}
+
+.modal__content {
+    overflow-y: auto;
+    padding-right: 6px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.modal__title {
+    margin: 4px 36px 4px 0;
+    font-size: 20px;
+}
+
+.modal__subtitle {
+    margin: 0 0 14px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.modal__note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+/* Витрина товаров внутри модального окна */
+
+.showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-height: 0;
+}
+
+.showcase--video {
+    min-height: 200px;
+}
+
+.video-stream {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-medium);
+    overflow: visible;
+    box-shadow: var(--shadow-soft);
+    background: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-stream__frame {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    vertical-align: middle;
+    transform: rotate(270deg);
+}
+
+.seller-image {
+    max-width: 100%;
+    max-height: 60vh;
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-soft);
+    object-fit: cover;
+}
+
+.product-card {
+    border-radius: var(--radius-small);
+    padding: 10px 10px 12px;
+    background: #fffdf0;
+    border: 1px solid var(--color-border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.product-card__name {
+    margin: 0;
+    font-size: 14px;
+}
+
+.product-card__details {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.product-card__price {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #7b5a00;
+}
+
+/* Подвал */
+
+.footer {
+    border-top: 1px solid var(--color-border-soft);
+    padding: 14px 16px 18px;
+    background: #fffbde;
+}
+
+.footer__text {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+

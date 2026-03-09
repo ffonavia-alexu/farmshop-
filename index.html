@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фермерский рынок</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__content">
+            <h1 class="logo">Фермерский рынок</h1>
+            <p class="subtitle">Онлайн‑витрина фермерских продуктов</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="intro">
+            <h2 class="intro__title">Выберите продавца</h2>
+            <p class="intro__text">
+                На этой странице представлены 8 продавцов. Нажмите на кнопку с именем продавца,
+                чтобы открыть его витрину в отдельном окне.
+            </p>
+        </section>
+
+        <section class="sellers-grid">
+            <!-- Кнопки продавцов -->
+            <button class="seller-card" data-seller="1">
+                <h3 class="seller-card__title">Ферма «Солнечный Утёс»</h3>
+                <p class="seller-card__text">Молочные продукты и свежие яйца</p>
+            </button>
+
+            <button class="seller-card" data-seller="2">
+                <h3 class="seller-card__title">Сад «Лимонная Роща»</h3>
+                <p class="seller-card__text">Фрукты, варенье и соки</p>
+            </button>
+
+            <button class="seller-card" data-seller="3">
+                <h3 class="seller-card__title">Огород «Зелёная Грядка»</h3>
+                <p class="seller-card__text">Овощи и зелень</p>
+            </button>
+
+            <button class="seller-card" data-seller="4">
+                <h3 class="seller-card__title">Пасека «Медовый Дом»</h3>
+                <p class="seller-card__text">Мёд и продукты пчеловодства</p>
+            </button>
+
+            <button class="seller-card" data-seller="5">
+                <h3 class="seller-card__title">Хлебная «Золотой Колос»</h3>
+                <p class="seller-card__text">Домашний хлеб и выпечка</p>
+            </button>
+
+            <button class="seller-card" data-seller="6">
+                <h3 class="seller-card__title">Сыроварня «Фермерский Сыр»</h3>
+                <p class="seller-card__text">Ремесленные сыры</p>
+            </button>
+
+            <button class="seller-card" data-seller="7">
+                <h3 class="seller-card__title">Фермер «Деревенское Мясо»</h3>
+                <p class="seller-card__text">Мясо и колбасы</p>
+            </button>
+
+            <button class="seller-card" data-seller="8">
+                <h3 class="seller-card__title">Травы «Лимонный Луг»</h3>
+                <p class="seller-card__text">Чаи и травяные сборы</p>
+            </button>
+        </section>
+    </main>
+
+    <!-- Окно‑витрина (одно, содержимое меняется в зависимости от продавца) -->
+    <div class="modal" id="sellerModal" aria-hidden="true">
+        <div class="modal__backdrop" data-close-modal></div>
+        <div class="modal__window" role="dialog" aria-modal="true">
+            <button class="modal__close" type="button" data-close-modal>&times;</button>
+            <div class="modal__content">
+                <h2 class="modal__title" id="modalTitle">Название продавца</h2>
+                <p class="modal__subtitle" id="modalSubtitle">Краткое описание продавца</p>
+
+                <div class="showcase showcase--video" id="modalShowcase">
+                    <div class="video-stream" id="videoStream">
+                        <img class="video-stream__frame" id="videoFrame" src="" alt="Витрина продавца" />
+                    </div>
+                </div>
+
+                <p class="modal__note">
+                    * Цены и состав товаров примерные и указаны только для демонстрации.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="footer__text">
+            Сделано как учебный пример для простого онлайн‑магазина.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
